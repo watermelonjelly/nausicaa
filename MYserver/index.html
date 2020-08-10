@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>START</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+    $('#audio-index').get(0).play();
+    $('button')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+
+    $('#start').click(function(){
+        window.location = 'map.html';
+    })
+    $('#story').click(function(){
+        window.location = "https://en.wikipedia.org/wiki/Nausica%C3%A4_of_the_Valley_of_the_Wind_(film)";
+    })
+ 
+
+})
+</script>
+</head>
+<body>
+    <audio id="audio-index" hidden="true" autostart="true" loop="true">
+        <source src="music/index.mp3">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='startpage' class='container'>
+        <div contenteditable='true' class='text_effect'>VALLEY OF THE WIND</div>
+        <div id='btn_wrap'>
+        <button id='start'class='startbtn'>START GAME</button>
+        <button id='story'class='startbtn'>READ STORY</button>
+        </div>
+    </div>
+
+
+</body>
+</html>

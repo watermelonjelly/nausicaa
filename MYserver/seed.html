@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SEED</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+$(document).ready(function() { 
+    var counter = 0
+    $('#seed1,#seed2,#seed3,#seed4,#seed5').draggable({
+        revert:'invalid',
+        containment:'parent',
+        
+    })
+    $('#tube').droppable({
+        drop:function(event,ui){
+            draggedObj = ui.draggable.attr('id');
+            // ui.droppable,fadeOut(1000,function(){
+            //     localStorage.setItem('user_choice',ui.draggable.attr('id'));
+            $("#"+draggedObj).fadeOut('slow');
+            counter++;
+            $("#tube").attr('src','img/tube'+counter+'.png');
+
+
+            $('#counter').html("Seeds: "+counter+"/5");
+            if(counter==5) {
+                $("#"+draggedObj).fadeOut('slow',function(){
+                $('#confirm').show();
+                })
+			
+            }
+        }
+
+    })
+    $('.yes').click(function(){
+  
+     window.location = 'layer.html';
+   })
+
+
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+    $('#audio-seed').get(0).play();
+    $('.seed')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+})
+</script>
+</head>
+<body>
+    <audio id="audio-seed" hidden="true" autostart="true" loop="true">
+        <source src="music/happy.mp3">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='container-seed' class='container'>
+        <div><button id='navigator'>Quit</button></div>
+            <img src='img/tube.png' id='tube' style="position:absolute;left:570px;top:300px;">
+            <img src='img/seed.png' id='seed1' class='seed'>
+            <img src='img/seed.png' id='seed2' class='seed'>
+            <img src='img/seed.png' id='seed3' class='seed'>
+            <img src='img/seed.png' id='seed4' class='seed'>
+            <img src='img/seed.png' id='seed5' class='seed'>
+
+ 
+        <div id='dialog-box'>
+            <p style="color: goldenrod;">Collect 5 seeds for Secret Garden: move seeds to the tube</p>
+        </div>
+        <div id='counter'>Seed: 0/5</div>
+        <div id = "confirm">
+            <div class = "message">Congratulations!<br>YOU successfully completed the task !</div>
+            <button class  ="yes">Explore Other Layers</button>
+        </div>
+    </div>
+
+</body>
+</html>

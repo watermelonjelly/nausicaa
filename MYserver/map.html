@@ -1,0 +1,85 @@
+<meta charset="utf-8">
+<title>MAP</title>
+<link href="style.css" rel="stylesheet" />
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+    $('.map-split').click(function(){
+        window.location = $(this).attr('data-url');
+    })
+    // var i = 0;
+    // var txt = 'Welcome to THE PERIPHERY LAND, FIND the VALLEY OF THE WIND and SEE what is happening there...';
+    // var speed = 50;
+
+    // function typeWriter() {
+    //   if (i < txt.length) {
+    //   document.getElementById("task_con").innerHTML += txt.charAt(i);
+    //   i++;
+    //   setTimeout(typeWriter, speed);
+    // }
+    // }
+    // $('#container').mouseenter(function(){
+    //   typeWriter();
+    // })
+    
+    $('.taskbox').fadeIn(3000);
+    $('#valley').mouseover(function(){
+        $('#valley-name').show();
+        $('#mouse-over').get(0).play();
+    })
+    $('#valley-name').mouseenter(function(){
+        $('#valley-name').css('background-color','gold');
+        
+    })
+    $('#valley-name').click(function(){
+        window.location='valley.html';
+        
+    })
+    $('#audio-map').get(0).play();
+    $('button')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+    
+})
+</script>
+</head>
+<body>
+    <audio id="audio-map" hidden="true" autostart="true" loop="true">
+        <source src="music/map.wav">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='container-map' class='container'>
+        <!-- <div id='SEA' class='map'data-url="sea.html"> -->
+            <img src='img/map-sea.png' id='sea' class='map-split' data-url="sea.html">
+            <!-- <p class='map-text'>SEA OF CORRUPTION</p> -->
+        <!-- </div> -->
+        <!-- <div id='PEI'class='map' data-url="peijitei.html"> -->
+            <img src='img/map-peijitei.png' id='peijitei' class='map-split' data-url="peijitei.html">
+            <!-- <p class='map-text'>PEIJITEI</p> -->
+        <!-- </div> -->
+        <!-- <div id='VALLEY' class='map' data-url="valley.html"> -->
+            <img src='img/map-valley.png' id='valley' class='map-split' data-url="valley.html">
+            <!-- <p class='map-text'>VALLEY OF THE WIND</p>  -->
+        <!-- </div> -->
+        <!-- <div id='TORUMEKIAN' class='map' data-url="torumekian.html"> -->
+            <img src='img/map-torumekian.png' id='torumekian' class='map-split' data-url="torumekian.html">
+            <!-- <p class='map-text'>TORUMEKIAN</p> -->
+        <!-- </div> -->
+        <div class='taskbox' id='maptask'>
+            <p class= 'task_content' id='task_con' style="color: red;">Welcome to THE PERIPHERY LAND, FIND the VALLEY OF THE WIND and SEE what is happening there...</p>
+        </div>
+        <div id='valley-name'><p style='font-size: 10px;'>
+            <b>VALLEY OF THE WIND</b></p></div>
+    </div>
+
+</body>
+</html>

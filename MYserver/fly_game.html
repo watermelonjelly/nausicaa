@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Game</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script src="hittest.js"></script>
+<script>
+$(document).ready(function() { 
+	$('#audio-flygame').get(0).play();
+    var image = new Image();
+    image.crossOrigin = "Anonymous";
+    var gameTimer;
+    var going;
+	var animation;
+	var change = {
+		38: { top: '-=1' },  //ArrowUp to move up
+		40: { top: '+=1' },  //ArrowDown to move down
+		37: { left: '-=1' }, //ArrowLeft to move left
+		39: { left: '+=1' }, //ArrowRight to move right
+	}
+	var leftMost = 0;
+	var topMost = 0;
+	var rightMost = $('#container-flygame').width()-$('#player').width();
+	var bottomMost = $('#container-flygame').height()-$('#player').height();
+	var playerPosX;
+	var playerPosY;
+	var playerLives = 5;
+
+	function updatePlayerPostion() {
+		playerPosX = $('#player').position().left;
+		playerPosY = $('#player').position().top;
+	}
+
+	$(document).one('keydown', keyDown);
+
+	function keyDown(e) {
+		$(document).one('keyup', keyup);
+		if(e.keyCode==37||e.keyCode==38||e.keyCode==39||e.keyCode==40) {			
+			animation = change[e.keyCode];
+			if(e.keyCode==37) {
+				$('#player').css({ transform: 'scaleX(1)' })
+			}
+			if(e.keyCode==39) {
+				$('#player').css({ transform: 'scaleX(-1)' })
+			}
+			going = setInterval(keepGoing, 1);
+		}
+	}
+	function keepGoing() {
+		updatePlayerPostion();
+		if( playerPosX+5 < leftMost ) {
+			$('#player').css({ left: '+=5' });
+			clearInterval(going);
+		} else if( playerPosX-5 > rightMost ) {
+			$('#player').css({ left: '-=5' });
+			clearInterval(going);
+		} else if( playerPosY-5 < topMost ) {
+			$('#player').css({ top: '+=5' });
+			clearInterval(going);
+		} else if( playerPosY+5 > bottomMost ) {
+			$('#player').css({ top: '-=5' });
+			clearInterval(going);
+		} else {
+			$('#player').css(animation);
+		}
+	}
+	function keyup(e) {
+		clearInterval(going);
+		$(document).one('keydown', keyDown);
+	}
+
+	/* GENERATE RANDOM NUMBER */
+	function getRandomNumber(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	function generateEnemies() {
+		$('<img>').appendTo('#container-flygame')
+		.attr('class','enemy')
+		.attr('src','img/plane.png')
+		.css({ 
+			top: getRandomNumber( 0, $('#container-flygame').height()-$('#player').height() ),
+			right: $('#container-flygame').width()-150,
+			position: 'absolute'
+		})
+		.animate({
+			right: -100
+		},{
+			easing: 'linear',
+			duration: getRandomNumber(3000,6000),
+			step: detectCollision,
+			complete: function() {
+				$(this).remove();
+			}
+		})
+	}
+	function detectCollision() {
+		var hit = $(this).objectHitTest({"object":$('#player'), "transparency":true});
+		console.log(hit);
+		if(hit) {
+			$(this).stop().fadeOut();
+			if(playerLives == 0) {
+				endGame('died');
+			} else {
+				playerLives--;
+				updateLives();
+			}
+		}
+	}
+	function updateLives() {
+		$('#livesContainer').text(playerLives);
+	}
+	function endGame(status) {
+		if(status=='died') {
+			$('#confirm').show();
+		}
+		if(status=='survived') {
+			$('.message').html("LUCKLY Escaped from PEIJITEI ARMY");
+			$('#confirm').show();
+		}
+		clearInterval(enemyTimer);
+		$('#gameTimer').stop();
+		$('.enemy').stop().fadeOut();
+		$('#container-flygame').css({ cursor: 'auto' });
+	}
+	function start() {
+		$('#container-flygame').css({ cursor: 'none' });
+		updateLives();
+		enemyTimer = setInterval(generateEnemies,500);
+		$('#gameTimer').animate({
+			width: 0
+		},{
+			easing: 'linear',
+			duration: 20000,	
+			complete: function() {
+				endGame('survived');
+			}
+		})
+	}
+
+	start();
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+	$('.yes').click(function(){
+  
+      window.location = 'peijitei.html';
+    })
+
+})
+
+
+</script>
+</head>
+<body>
+	<audio id="audio-flygame" hidden="true" autostart="true" loop="true">
+        <source src="music/flygame.mp3">
+    </audio>
+    <div id='container-flygame' class='container'>
+        <div><button id='navigator'>Quit</button></div>
+        <div id="gameTimerContainer">
+			<div id="gameTimer"></div>
+		</div>
+        <div id="livesContainer"></div>
+		<img src="img/fly-game.png" id="player">
+		<div id='flytask'>
+			<p class= 'task_content' id='task_con' style="color: rgb(170, 125, 9);">Use arrow keys on Keyboard: Control GLIDER avoid Collision</p>
+		</div>
+		<div id = "confirm">
+			<div class = "message">Oops! YOU are CAUGHT by PEIJITEI ARMY</div>
+			<button class  ="yes">Continue</button>
+		</div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>VALLEY</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+
+
+
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+
+    $('#background-pop').hide();
+    $('#nausicaa-small').hide();
+    $('#yupa').hide();
+    $('#dialog-box').hide();
+    $('#nausicaa-small').fadeIn(3000, function(){
+        $('#dialog-box').fadeIn(3000,function(){
+            $('#dialogbutton').fadeIn(1000);
+            
+        })
+    })
+    
+
+    var progress = 0;
+	var txt;
+
+
+	function eventHandler() {
+		if(progress==0) {
+            txt = "BUT the forest is filled with a deadly miasma that chokes all human and animal life.";
+        }
+        if(progress==1) {
+        	txt = "Before we entering the forest";
+        }
+    	if(progress==2) {
+        	txt = "we need to wear something.";
+        }
+        if(progress==3) {
+        	$('#background-pop').css('display','block');
+        }
+        if(progress==4) {
+        	$('#background-pop').css('display','none');
+            txt = "Now we are ready to go.";
+        }
+        if(progress==5) {
+        	window.location = 'layer.html';
+        }
+
+
+        progress++;
+        $('#talk').html(txt);
+	}
+
+	$('.dialogbutton').click(eventHandler);
+
+    $('#choice1').click(function(){
+        $('#talk').html('Err...it will break the balance. Try another option.');
+    })
+    $('#choice2').click(function(){
+        $('#talk').html('Yes, You made right choice.');
+        // setTimeout(function(){
+        //     window.location = 'layer.html';
+        //     },3000)
+    })
+
+    $('#audio-sea').get(0).play();
+    $('button')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+
+    
+ 
+
+ 
+
+})
+</script>
+</head>
+<body>
+    <audio id="audio-sea" hidden="true" autostart="true" loop="true">
+        <source src="music/sea.mp3">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='container-sea' class='container'>
+        <div><button id='navigator'>Back to Map</button></div>
+        <div id='cha'>
+            <img src='img/nausicaa-small.png' id='nausicaa-small'>
+        </div>
+        <div id='dialog-box'>
+            <img src='img/dialogbox-1.png' id='dialog'>
+            <p class='dialog-text' id='talk' style='color:goldenrod'>Nausicaä :<br>
+                TETO look, What an amazing place !
+            </p>
+            <button class='dialogbutton'>Continue</button>
+        </div>
+    </div>
+    <div id="background-pop">
+        <div id="div-pop">
+            <div class="div-top">
+                <!-- <span id="close-button">X</span> -->
+                <div>what need to bring for Exploring Sea of Corruption</div>
+            </div>
+            <div class="div-content">
+                <button id='choice1' class='choicebutton'>Insecticide to kill toxic insects</button>
+                <button id='choice2' class='choicebutton'>Mask to prevent breath in toxic air</button>
+            </div>
+            <div class="div-footer">
+                Please click your Choice
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

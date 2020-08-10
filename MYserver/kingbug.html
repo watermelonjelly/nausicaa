@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Kingbug</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+    $('#audio-bug').get(0).play();
+    $('button')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+    var counter = 0
+
+    $('.bug').click(function(){
+            $(this).attr("src",'img/bluebug.png');
+            counter++;
+            $('#bug_counter').html(counter+" Saved");
+    })
+
+
+
+
+    function startTimer() {
+    
+
+    
+    var i = 2;
+    // var a = setInterval("display()",3000);
+
+    display = function(){
+        $('#bug'+i).fadeIn(1000,function(){
+            $(this).fadeOut(2000);
+        })
+        i++;
+        if(i==12){
+            i=2;
+        }
+        console.log(i);
+    }
+    stopDisplay = function() {
+        clearInterval(a);
+    }
+    display();
+    setInterval("display()",2500);
+    
+
+    // stopDisplay = function() {
+    //     clearInterval(a);
+    // }
+
+    $('#gameTimer').animate({
+			width: 0
+		},{
+			easing: 'linear',
+			duration: 30000,
+			complete: function() {
+                $('.bugred').remove();
+                $('.bug').remove();
+
+                $('.message').html("You have saved "+counter+" little Ohums. The Kingbug calms down.")
+                // stopDisplay();
+                $('#confirm').show();
+                $('.yes').click(function(){
+                    $('#confirm').hide();
+                    $('#bug1').fadeOut(3000,function(){
+                        $('#coolbug').fadeIn(2000,function(){
+                            setTimeout(function(){
+                                window.location = 'end.html';},4000)
+                        });
+                    })
+                    
+                })
+			}
+		})
+	}
+
+	startTimer();
+    
+
+
+
+    $('.bugred').click(function(){
+        $('#gameTimer').stop();
+        $('.message').html('The Ohmus are irritated!');
+        $('#confirm').show();
+        $('.yes').text('YOU FAIL !');
+        $('.yes').click(function(){
+            window.location = 'gameover.html';
+        })
+    })
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+})
+</script>
+</head>
+<body>
+    <audio id="audio-bug" hidden="true" autostart="true" loop="true">
+        <source src="music/bug.mp3">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='container-kingbug' class='container'>
+        <div><button id='navigator'>Quit</button></div>
+        <div id="gameTimerContainer">
+			<div id="gameTimer"></div>
+		</div>
+        <div id='cha'>
+            <img src='img/redbug.png' id='bug1'>
+            <img src='img/coolbug.png' id='coolbug'>
+
+            <img src='img/netbug.png' id='bug2' class='bug'>
+            <img src='img/netbugred.png' id='bug3' class='bugred'>
+            <img src='img/netbug.png' id='bug4' class='bug'>
+            <img src='img/netbug.png' id='bug5' class='bug'>
+            <img src='img/netbug.png' id='bug6' class='bug'>
+            <img src='img/netbugred.png' id='bug7' class='bugred'>
+            <img src='img/netbug.png' id='bug8' class='bug'>
+            <img src='img/netbug.png' id='bug9' class='bug'>
+            <img src='img/netbug.png' id='bug10' class='bug'>
+            <img src='img/netbugred.png' id='bug11' class='bugred'>
+
+
+
+        </div>
+        <div id='bug_counter'>0 Saved</div>
+        <div id='bugtask'>
+			<p class= 'task_content' id='task_con'>Click netted blue ohums to save little bugs. Be careful,DO NOT TOUCH Angry RED OHUM.</p>
+		</div>
+        <div id = "confirm">
+			<div class = "message"></div>
+			<button class  ="yes">YOU SAVED THE WORLD!</button>
+		</div>
+
+    </div>
+
+</body>
+</html>

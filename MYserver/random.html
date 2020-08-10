@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Kingbug</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+//     jQuery(function(){
+//     function random(n) {
+//         return Math.floor(Math.random() * n);
+//     }
+//     var transition_time = 200;
+//     var waiting_time = 100;
+//     var images = $('div#block img');
+//     var n = images.length;
+//     var current = random(n);
+//     images.hide();
+//     images.eq(current).show();
+    
+//     //get the size of the container
+//     var boxHeight = document.getElementById('block').offsetHeight;
+//     var boxWidth = document.getElementById('block').offsetWidth;
+    
+//     //range of possible image scales
+//     var objectMaxHeight = 60;
+//     var objectMinHeight = 20;
+    
+//     var interval_id = setInterval(function () {
+//         images.eq(current).fadeOut(transition_time, function () {
+//             current = random(n);
+            
+//             //gets reference to selected image
+//             var $domImage = images.eq(current);
+            
+//             //generates random heights and widths for the image to be shown in
+//             var generatedHeight = 
+//             		Math.floor(
+//                 	Math.random() * (objectMaxHeight - objectMinHeight)
+//                  ) + objectMinHeight;
+
+// 						// assigns values to the image
+//             $domImage.css('height', generatedHeight); 
+//             $domImage.css('width', "auto"); 
+            
+//             var imageAutoWidth = $domImage.width();
+            
+//             var generatedYLocation = Math.floor(
+//               Math.random() * (boxHeight - generatedHeight + 1)
+//             ) + 0;
+            
+//             var generatedXLocation = Math.floor(
+//                 Math.random() * (boxWidth - imageAutoWidth)
+//             ) + 0;
+            
+//             $domImage.css('top', generatedYLocation);
+//             $domImage.css('left', generatedXLocation);
+//             $domImage.fadeIn(transition_time);
+//         });
+//     }, 2 * transition_time + waiting_time);
+// })
+    var myPix = new Array("images/netbug.jpg","images/netbugred.jpg");
+    var randomNum = Math.floor((Math.random() * myPix.length));
+    document.getElementById("myPicture").src = myPix[randomNum];
+    $('.random-img').click(function(){
+        $(this).attr(src,'img/bugblue.png');
+        
+    })
+
+})
+</script>
+</head>
+<style>
+
+
+img {
+  position:relative; 
+  top: 0;
+  left: 0;
+  height: 100px;
+  width: 100px;
+}
+</style>
+<body>
+    <div id='container-kingbug' class='container'>
+        <div><button id='navigator'>Quit</button></div>
+        <div id="gameTimerContainer">
+			<div id="gameTimer"></div>
+        </div>
+        <img src='img/redbug.png' id='bug1'>
+        <div id='block'>
+            <img src='img/netbug.png' id='bug2'>
+            <img src='img/netbugred.png' id='bug3'>
+
+
+
+        </div>
+       
+        <div id='counter'>Shell: 0/78</div>
+    </div>
+
+</body>
+</html>

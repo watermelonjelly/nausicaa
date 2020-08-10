@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>VALLEY</title>
+<link href="style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Rye&display=swap" rel="stylesheet">
+<script src="jquery-3.5.0.min.js"></script>
+<script>
+$(document).ready(function() { 
+    $('#background-pop').hide();
+    $('#kushana').hide();
+    $('#yupa').hide();
+    $('#dialog-box').hide();
+    $('#littlebug1').hide();
+    $('#littlebug2').hide();
+    $('#dialog-box').hide();
+
+    $('#kushana').fadeIn(3000, function(){
+        $('#yupa').fadeIn(2000,function(){
+            $('#dialog-box').fadeIn(3000,function(){
+                $('#dialogbutton').fadeIn(1000);
+            })
+        })
+    })
+    $('#choice1').click(function(){
+        window.location = 'kingbug.html';
+    })
+    $('#choice2').click(function(){
+        window.location = 'kingbug.html';
+    })
+
+
+    $('#audio-turomekian').get(0).play();
+    $('button')
+    .click(function(){
+        $('#mouse-click').get(0).play();
+    })
+    .mouseover(function(){
+        $('#mouse-over').get(0).play();
+    })
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+    
+
+
+    $('#navigator').click(function(){
+        window.location = 'map.html';
+    })
+    var progress = 0;
+	var txt;
+
+	function eventHandler() {
+		if(progress==0) {
+            txt = "Master Yupa: Have you heard PEIJITET revived GOD WARRIOR ?";
+        }
+        if(progress==1) {
+        	txt = "Kushana : Don't worry Lord Yupa. I have idea to beat them.";
+            
+        }
+        if(progress==2) {
+        	txt = "Kushana : we can make use of Ohum in the Sea Of Corruption.";
+        }
+    	if(progress==3) {
+        	txt = "Master Yupa: how can we make Ohum beat them ?";
+        }
+        if(progress==4) {
+        	txt = "Kushana : we have caught some little Ohums as bait to make King Bug attack the land.";
+            $('#littlebug1').fadeIn(2000,function(){
+                $('#littlebug2').fadeIn(2000);
+            });
+
+        }
+        if(progress==5) {
+        	txt = "Master Yupa:  Ohum can kill human if they annoyed.";
+        }
+        if(progress==6) {
+        	$('#background-pop').css('display','block');
+        }
+        progress++;
+        $('#talk').html(txt);
+	}
+
+	$('.dialogbutton').click(eventHandler);
+ 
+
+})
+</script>
+</head>
+<body>
+    <audio id="audio-turomekian" hidden="true" autostart="true" loop="true">
+        <source src="music/turomekian.mp3">
+    </audio>
+    <audio id="mouse-click" hidden="true">
+        <source src="music/mouse-click.wav">
+    </audio>
+    <audio id="mouse-over" hidden="true">
+        <source src="music/mouse-over.wav">
+    </audio>
+    <div id='container-torumekian' class='container'>
+        <div><button id='navigator'>Back to Map</button></div>
+        <div id='cha'>
+            <img src='img/kushana.png' id='kushana'>
+            <img src='img/yupa.png' id='yupa'>
+            <img src='img/netbug.png' id='littlebug1' class='bug'>
+            <img src='img/netbug.png' id='littlebug2' class='bug'>
+        </div>
+        <div id='dialog-box'>
+            <img src='img/dialogbox-1.png' id='dialog'>
+            <p class='dialog-text' id= 'talk'style='color:goldenrod'>Kushana :<br>
+                Good to see you Lord Yupa !
+            </p>
+            <button class='dialogbutton'>Continue</button>
+        </div>
+    </div>
+    <div id="background-pop">
+        <div id="div-pop">
+            <div class="div-top">
+                <!-- <span id="close-button">X</span> -->
+                <div>KUSHANA wants Make use of Ohum as weapon</div>
+            </div>
+            <div class="div-content">
+                <button id='choice1' class='choicebutton'>SAVE the little Ohmu. They are innocent.</button>
+                <button id='choice2' class='choicebutton'>STOP KUSHANA. Ohum are human friends. They have been working hard to purify the pollution.</button>
+            </div>
+            <div class="div-footer">
+                Please click your Choice
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
